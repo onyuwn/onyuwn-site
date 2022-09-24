@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Placeholder } from "./Placeholder";
 import React, {Component, useEffect, useState} from 'react';
 
