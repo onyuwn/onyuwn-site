@@ -23,7 +23,7 @@ export class ArtEra extends Component {
     }
 
     getPoints() {
-        const resolution = 20; //10 points along the circle
+        const resolution = 10; //10 points along the circle
         const vHeight = window.innerHeight;
         const scrollCap = vHeight * 5; // times 5 because height is set to 500% vh
         const vWidth = window.innerWidth;
@@ -39,6 +39,9 @@ export class ArtEra extends Component {
             // var x = (radius) * Math.cos(curTheta);
             // var y = (radius) * Math.sin(curTheta);
             curTheta += thetaStep;
+            if(curTheta >= 360) {
+                curTheta = 0;
+            }
             pointsTemp.push([Math.ceil(x) + (Math.ceil(vWidth)/2), Math.ceil(y) + (Math.ceil(vHeight)/2)]);
         }
 

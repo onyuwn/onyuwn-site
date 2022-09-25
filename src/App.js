@@ -16,8 +16,8 @@ function App() {
   useEffect(() => {
     if(eras.length == 0) {
       var erasTemp = [];
-      for(var i = 0; i < 2; i++) {
-        erasTemp.push(1);
+      for(var i = 0; i < 5; i++) {
+        erasTemp.push(i);
       }
       setEras(erasTemp); //more verbose later
     }
