@@ -10,7 +10,7 @@ function App() {
   const [target, setTarget] = useState([]);
   const [debugging, setDebug] = useState(false);
   var eras = [1,2,3,4,5];
-  var eraStep = Math.round((window.innerHeight * 5)/eras.length);
+  var eraStep = Math.round((window.innerHeight * 5)/eras.length); // const 5 comes from viewport height -- not how many eras
   function handleScroll(event) {
     setZoom(window.scrollY);
   }
@@ -54,7 +54,7 @@ function App() {
       {eras.map((era, i) => {
         return (
           <>
-            <ArtEra idx={i} resolution={10} debugging={debugging} key={i} target={target} zoom={zoom - (eraStep * i)} eraVisible={canDisplayEra(i)}/>
+            <ArtEra idx={i} resolution={10} debugging={debugging} key={i} target={target} zoom={zoom - ((eraStep - (eraStep/eras.length)) * i)} eraVisible={canDisplayEra(i)}/>
           </>
         )
       })}

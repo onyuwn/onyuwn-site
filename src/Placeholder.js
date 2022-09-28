@@ -17,7 +17,7 @@ export function Placeholder(props) {
         setX(Math.abs(((r/vDiag) * 100))); // "x" of the filters scaling function -- pct of where this object is in the vp
         var maxWidth = Math.round(vW * .01);
         //var widthScale = ((-1/25) * Math.pow(x - 50, 2)) + 100;
-        var widthScale = 100 * Math.pow(Math.E, -1 * ((Math.pow(x - 100, 2))/625)); //gauss function -- cool guy
+        var widthScale = 100 * Math.pow(Math.E, -1 * ((Math.pow(x - 50, 2))/625)); //gauss function -- cool guy
         setFxScale(widthScale/100);
         setWidth(maxWidth * (widthScale/100));
     });
