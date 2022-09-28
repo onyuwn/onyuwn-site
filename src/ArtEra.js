@@ -6,7 +6,7 @@ import React, {Component, useEffect, useState} from 'react';
 export class ArtEra extends Component {
     constructor(props) {
         super(props);
-        this.state = {points: [], cats:[], pathStr:"", inFocus:-1};
+        this.state = {points: [], cats:[], pathStr:"", inFocus:-1, era:props.idx};
         this.getPoints();
     }
 
@@ -47,25 +47,24 @@ export class ArtEra extends Component {
     getPoints() {
         const resolution = this.props.resolution; //10 points along the circle
         const vHeight = window.innerHeight;
-        const scrollCap = vHeight * 5; // times 5 because height is set to 500% vh
         const vWidth = window.innerWidth;
         //radius will change depending on if in focus
         const radius = this.props.zoom; //depends on pixels in viewport
-        var thetaStep = ((2 * Math.PI) / resolution);
+        var thetaStep = ((2 * Math.PI) / resolution); // radians :)
         var curTheta = 0;
         var pointsTemp = [];
 
         for(var i = 0; i < resolution; i++) {
-            var x = (radius * (1 - (i/resolution))) * Math.cos(curTheta);
-            var y = (radius * (1 - (i/resolution))) * Math.sin(curTheta);
-            // var x = (radius) * Math.cos(curTheta);
-            // var y = (radius) * Math.sin(curTheta);
+            // var x = (radius * (1 - (i/resolution))) * Math.cos(curTheta);
+            // var y = (radius * (1 - (i/resolution))) * Math.sin(curTheta);
+            var x = (radius) * Math.cos(curTheta);
+            var y = (radius) * Math.sin(curTheta);
             curTheta += thetaStep;
             if(curTheta >= 360) {
                 curTheta = 0;
             }
             var xFinal = Math.ceil(x) + (Math.ceil(vWidth)/2);
-            var yFinal = Math.ceil(y) + (Math.ceil(vHeight)/2)
+            var yFinal = Math.ceil(y) + (Math.ceil(vHeight)/2);
             pointsTemp.push([xFinal, yFinal]);
         }
         this.updatePathStr(pointsTemp);
@@ -81,11 +80,17 @@ export class ArtEra extends Component {
         }
     }
 
+    eraVisible() {
+        return this.props.zoom > 0;
+    }
+
     render() {
         var placeholders = [];
 
         this.state.points.forEach((point, i) => {
-            placeholders.push(<Placeholder cat={this.state.cats[i]} debugging={this.props.debugging} idx={i} key={i} x={point[0]} y={point[1]} z={this.props.zoom}/>);
+            if(this.eraVisible() === true) {
+                placeholders.push(<Placeholder cat={this.state.cats[i]} debugging={this.props.debugging} idx={i} key={i} x={point[0]} y={point[1]} z={this.props.zoom} era={this.state.era}/>);
+            }
         });
         
         return (
