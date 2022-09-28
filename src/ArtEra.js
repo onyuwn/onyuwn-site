@@ -54,11 +54,11 @@ export class ArtEra extends Component {
         var curTheta = 0;
         var pointsTemp = [];
 
-        for(var i = 0; i < resolution; i++) {
-            // var x = (radius * (1 - (i/resolution))) * Math.cos(curTheta);
-            // var y = (radius * (1 - (i/resolution))) * Math.sin(curTheta);
-            var x = (radius) * Math.cos(curTheta);
-            var y = (radius) * Math.sin(curTheta);
+        for(var i = 0; i < resolution - Math.round(resolution * .2); i++) {
+            var x = (radius * (1 - (i/resolution))) * Math.cos(curTheta);
+            var y = (radius * (1 - (i/resolution))) * Math.sin(curTheta);
+            // var x = (radius) * Math.cos(curTheta);
+            // var y = (radius) * Math.sin(curTheta);
             curTheta += thetaStep;
             if(curTheta >= 360) {
                 curTheta = 0;
@@ -89,7 +89,9 @@ export class ArtEra extends Component {
 
         this.state.points.forEach((point, i) => {
             if(this.eraVisible() === true) {
-                placeholders.push(<Placeholder cat={this.state.cats[i]} debugging={this.props.debugging} idx={i} key={i} x={point[0]} y={point[1]} z={this.props.zoom} era={this.state.era}/>);
+                placeholders.push(
+                    <Placeholder cat={this.state.cats[i]} debugging={this.props.debugging} idx={i} key={i} x={point[0]} y={point[1]} z={this.props.zoom} era={this.state.era}/>
+                );
             }
         });
         

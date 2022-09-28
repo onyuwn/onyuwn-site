@@ -54,7 +54,7 @@ function App() {
       {eras.map((era, i) => {
         return (
           <>
-            <ArtEra idx={i} resolution={10} debugging={debugging} key={i} target={target} zoom={zoom - ((eraStep - (eraStep/eras.length)) * i)} eraVisible={canDisplayEra(i)}/>
+            <ArtEra idx={i} resolution={20} debugging={debugging} key={i} target={target} zoom={zoom - ((eraStep - (eraStep/eras.length)) * i)} eraVisible={canDisplayEra(i)}/>
           </>
         )
       })}
