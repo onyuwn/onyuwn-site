@@ -6,22 +6,16 @@ import { ArtEra } from './ArtEra';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [zoom, setZoom] = useState(0);
-  const [eras, setEras] = useState([]);
+  const [zoom, setZoom]= useState(0);
   const [target, setTarget] = useState([]);
-  
+  const [debugging, setDebug] = useState(false);
+  var eras = [1,2,3,4,5];
+  var eraStep = Math.round((window.innerHeight * 5)/eras.length); // const 5 comes from viewport height -- not how many eras
   function handleScroll(event) {
     setZoom(window.scrollY);
   }
   
   useEffect(() => {
-    if(eras.length == 0) {
-      var erasTemp = [];
-      for(var i = 0; i < 5; i++) {
-        erasTemp.push(i);
-      }
-      setEras(erasTemp); //more verbose later
-    }
   });
 
   function setFocus(e) {
@@ -34,12 +28,35 @@ function App() {
     }
   };
 
+  function toggleDebug(e) {
+    setDebug(!debugging);
+  }
+
+  function canDisplayEra(i) {
+    // var dY = zoom / (eraStep * (i + 1));
+    // var dYLower = zoom - (i * eraStep);
+    // if(dY < .75 && dY > .45) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+
+    return true;
+  }
+
   window.addEventListener('scroll', handleScroll);
 
   return (
-    <div className="container" onClick={(e) => setFocus(e)}>
+    <div className="container">
+      <div id="controls">
+        <button onClick={toggleDebug}>debug</button>
+      </div>
       {eras.map((era, i) => {
-        return <ArtEra idx={i} key={i} target={target} zoom={zoom/(era * era)}/>
+        return (
+          <>
+            <ArtEra idx={i} resolution={20} debugging={debugging} key={i} target={target} zoom={zoom - ((eraStep - (eraStep/eras.length)) * i)} eraVisible={canDisplayEra(i)}/>
+          </>
+        )
       })}
     </div>
   );
