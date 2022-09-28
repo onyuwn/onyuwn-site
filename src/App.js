@@ -6,22 +6,16 @@ import { ArtEra } from './ArtEra';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [zoom, setZoom] = useState(0);
-  const [eras, setEras] = useState([]);
+  const [zoom, setZoom]= useState(0);
   const [target, setTarget] = useState([]);
+  const [debugging, setDebug] = useState(false);
+  var eras = [1,2,3,4];
   
   function handleScroll(event) {
     setZoom(window.scrollY);
   }
   
   useEffect(() => {
-    if(eras.length == 0) {
-      var erasTemp = [];
-      for(var i = 0; i < 5; i++) {
-        erasTemp.push(i);
-      }
-      setEras(erasTemp); //more verbose later
-    }
   });
 
   function setFocus(e) {
@@ -34,12 +28,17 @@ function App() {
     }
   };
 
+  function toggleDebug(e) {
+    setDebug(!debugging);
+  }
+
   window.addEventListener('scroll', handleScroll);
 
   return (
-    <div className="container" onClick={(e) => setFocus(e)}>
+    <div className="container">
+      <div id="controls"><button onClick={toggleDebug}>debug</button></div>
       {eras.map((era, i) => {
-        return <ArtEra idx={i} key={i} target={target} zoom={zoom/(era * era)}/>
+        return <ArtEra idx={i} resolution={10} debugging={debugging} key={i} target={target} zoom={zoom/(Math.pow(era,2))}/>
       })}
     </div>
   );

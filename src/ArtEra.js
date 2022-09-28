@@ -6,15 +6,22 @@ import React, {Component, useEffect, useState} from 'react';
 export class ArtEra extends Component {
     constructor(props) {
         super(props);
-        this.state = {points: [], zoom: this.props.zoom, cats: [], pathStr:"", inFocus:-1};
+        this.state = {points: [], cats:[], pathStr:"", inFocus:-1};
         this.getPoints();
     }
 
     componentDidUpdate() {
-        this.state.zoom = this.props.zoom;
         this.getPoints();
-        if(this.state.cats.length < 10) {
-            this.getCats();
+
+        if(this.props.debugging === true && this.state.cats.length < this.props.resolution) 
+        {
+            fetch("https://api.thecatapi.com/v1/images/search")
+            .then((response) => response.json())
+            .then(
+                (result) => {
+                    this.setState((state) => {state.cats.push(result[0].url)});
+                }
+            );
         }
     }
 
@@ -24,29 +31,27 @@ export class ArtEra extends Component {
             if(p[0] != Infinity && p[0] != NaN && p[1] != Infinity && p[1] != NaN) {
                 // var newPt = " L" +p[0].toString() + "," + p[1].toString();
                 // this.state.pathStr += newPt;
-                if(i === 0) {
-                    var newPt = " C" + Math.round(window.innerWidth/2) + "," + Math.round((window.innerHeight/2) + 100) + " " + p[0].toString() + "," + (p[1] + 25).toString() + " " + p[0].toString() + "," + p[1].toString();
-                    this.state.pathStr += newPt;
-                } else {
-                    var newPt = " S" + p[0].toString() + "," + (p[1] + 25).toString() + " " + p[0].toString() + "," + p[1].toString();
-                    this.state.pathStr += newPt;
+                if(!(p[0]  > window.innerWidth || p[0] < 0 || p[1] > window.innerHeight || p[1] < 0)) {
+                    if(i === 0) {
+                        var newPt = " C" + Math.round(window.innerWidth/2) + "," + Math.round((window.innerHeight/2) + 100) + " " + p[0].toString() + "," + (p[1] + 25).toString() + " " + p[0].toString() + "," + p[1].toString();
+                        this.state.pathStr += newPt;
+                    } else {
+                        var newPt = " S" + p[0].toString() + "," + (p[1] + 25).toString() + " " + p[0].toString() + "," + p[1].toString();
+                        this.state.pathStr += newPt;
+                    }
                 }
             }
         });
     }
 
-    getCats() {
-
-    }
-
     getPoints() {
-        const resolution = 20; //10 points along the circle
+        const resolution = this.props.resolution; //10 points along the circle
         const vHeight = window.innerHeight;
         const scrollCap = vHeight * 5; // times 5 because height is set to 500% vh
         const vWidth = window.innerWidth;
         //radius will change depending on if in focus
-        const radius = this.state.zoom; //depends on pixels in viewport
-        var thetaStep = (360 / resolution) + (this.state.zoom / scrollCap);
+        const radius = this.props.zoom; //depends on pixels in viewport
+        var thetaStep = ((2 * Math.PI) / resolution);
         var curTheta = 0;
         var pointsTemp = [];
 
@@ -80,21 +85,16 @@ export class ArtEra extends Component {
         var placeholders = [];
 
         this.state.points.forEach((point, i) => {
-            if(this.props.target && this.props.target[0] > 0 && this.props.zoom >= 250 && this.props.zoom <= 500) {
-                console.log("nn");
-                if(this.isNear(this.props.target, point) === true) {
-                    placeholders.push(<Placeholder idx={i} key={i} x={point[0]} y={point[1]} z={this.props.zoom}/>);
-                }
-            } else {
-                placeholders.push(<Placeholder idx={i} key={i} x={point[0]} y={point[1]} z={this.props.zoom}/>);
-            }
+            placeholders.push(<Placeholder cat={this.state.cats[i]} debugging={this.props.debugging} idx={i} key={i} x={point[0]} y={point[1]} z={this.props.zoom}/>);
         });
         
         return (
             <div className="art-era">
-                <svg viewBox={"0" + " 0 " + window.innerWidth.toString() + " " + window.innerHeight.toString()}>
-                    <path d={"M" + Math.round(window.innerWidth/2).toString() + "," + Math.round(window.innerHeight/2).toString() + " " + this.state.pathStr}></path>
-                </svg>
+                {this.props.debugging &&
+                    <svg viewBox={"0" + " 0 " + window.innerWidth.toString() + " " + window.innerHeight.toString()}>
+                        <path d={"M" + Math.round(window.innerWidth/2).toString() + "," + Math.round(window.innerHeight/2).toString() + " " + this.state.pathStr}></path>
+                    </svg>
+                }
                 {placeholders && placeholders.length >= 1 &&
                     <div>{placeholders}</div>
                 }

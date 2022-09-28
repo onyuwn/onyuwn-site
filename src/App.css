@@ -3,7 +3,13 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   height:500vh;
-  width:500vw;
+  width:100vw;
+}
+
+#controls {
+  position:fixed;
+  z-index:1000;
+  margin:1em;
 }
 
 .art-era {
