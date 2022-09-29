@@ -32,18 +32,6 @@ function App() {
     setDebug(!debugging);
   }
 
-  function canDisplayEra(i) {
-    // var dY = zoom / (eraStep * (i + 1));
-    // var dYLower = zoom - (i * eraStep);
-    // if(dY < .75 && dY > .45) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
-
-    return true;
-  }
-
   window.addEventListener('scroll', handleScroll);
 
   return (
@@ -54,7 +42,8 @@ function App() {
       {eras.map((era, i) => {
         return (
           <>
-            <ArtEra idx={i} resolution={20} debugging={debugging} key={i} target={target} zoom={zoom - ((eraStep - (eraStep/eras.length)) * i)} eraVisible={canDisplayEra(i)}/>
+            <ArtEra idx={i} resolution={20} debugging={debugging} key={i} target={target} zoomCap={eraStep}
+                    zoom={zoom - ((eraStep - (eraStep/eras.length)) * i)}/>
           </>
         )
       })}

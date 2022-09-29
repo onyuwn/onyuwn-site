@@ -6,7 +6,7 @@ import React, {Component, useEffect, useState} from 'react';
 export class ArtEra extends Component {
     constructor(props) {
         super(props);
-        this.state = {points: [], cats:[], pathStr:"", inFocus:-1, era:props.idx};
+        this.state = {points: [], cats:[], pathStr:"", inFocus:-1, era:props.idx, selected:-1};
         this.getPoints();
     }
 
@@ -60,9 +60,6 @@ export class ArtEra extends Component {
             // var x = (radius) * Math.cos(curTheta);
             // var y = (radius) * Math.sin(curTheta);
             curTheta += thetaStep;
-            if(curTheta >= 360) {
-                curTheta = 0;
-            }
             var xFinal = Math.ceil(x) + (Math.ceil(vWidth)/2);
             var yFinal = Math.ceil(y) + (Math.ceil(vHeight)/2);
             pointsTemp.push([xFinal, yFinal]);
@@ -71,8 +68,13 @@ export class ArtEra extends Component {
         this.state.points = pointsTemp;
     }
 
-    isNear(point1, point2) {
+    isNear(point1, point2, i) {
         var threshold = 2 * 16; // radius of placeholder from em to px
+        var xError = Math.abs(point1[0] - point2[0]);
+        var yError = Math.abs(point1[1] - point2[1]);
+
+        console.log(i.toString() + ":::: " + xError.toString() + ", " + yError.toString());
+
         if(Math.abs(point1[0] - point2[0]) <= threshold && Math.abs(point1[1] - point2[1]) <= threshold) {
             return true;
         } else {
@@ -81,7 +83,12 @@ export class ArtEra extends Component {
     }
 
     eraVisible() {
-        return this.props.zoom > 0;
+        return this.props.zoom > 0 && this.props.zoom < this.props.zoomCap;
+    }
+
+    handleSelect(idx) {
+        console.log(idx.toString() + " selected!");
+        this.setState({selected: idx});
     }
 
     render() {
@@ -90,7 +97,10 @@ export class ArtEra extends Component {
         this.state.points.forEach((point, i) => {
             if(this.eraVisible() === true) {
                 placeholders.push(
-                    <Placeholder cat={this.state.cats[i]} debugging={this.props.debugging} idx={i} key={i} x={point[0]} y={point[1]} z={this.props.zoom} era={this.state.era}/>
+                    <Placeholder cat={this.state.cats[i]} debugging={this.props.debugging}
+                                 idx={i} key={i} x={point[0]} y={point[1]} z={this.props.zoom} era={this.state.era}
+                                 handleSelect={this.handleSelect.bind(this)} selected={i===this.state.selected}
+                                 checkSelected={this.state.selected>=0}/>
                 );
             }
         });
