@@ -1,5 +1,11 @@
 /* eslint-disable */
 import { useEffect, useState } from "react"
+import d from "./assets/d copy.png"
+import g from "./assets/g.png"
+import glare from "./assets/glare.png"
+import O from "./assets/O.png"
+import paper from "./assets/paper2 dispd.png"
+import f from "./assets/f copy 4.png"
 
 export function Placeholder(props) {
     const [color, setColor] = useState("");
@@ -33,18 +39,27 @@ export function Placeholder(props) {
         }
     });
 
-    function getColor(i) {
-        if(i == 0) {
-            return "red";
-        } else if(i == 1) {
-            return "blue";
-        } else if(i == 2) {
-            return "green";
-        } else if(i == 3) {
-            return "black";
-        } else if(i == 4) {
-            return "pink";
+    function getBorder(i) {
+        if(props.debugging === true) {
+            if(i == 0) {
+                return "2px solid red";
+            } else if(i == 1) {
+                return "2px solid blue";
+            } else if(i == 2) {
+                return "2px solid green";
+            } else if(i == 3) {
+                return "2px solid black";
+            } else if(i == 4) {
+                return "2px solid pink";
+            }
+        } else {
+            return "";
         }
+    }
+
+    function getImage(i) {
+        var images = [d, f, g, glare, O, paper];
+        return images[i];
     }
     
     return (
@@ -52,10 +67,10 @@ export function Placeholder(props) {
             style={{zIndex:Math.ceil(100 * fxScale), top:props.y - (16 * (width/2)),
             left:props.x - (16 * (width/2)), width:width + "em",
             height:width+"em", filter:'blur(' + Math.ceil(2 - Math.floor((5 * fxScale))) + 'px)',
-            opacity:(fxScale).toFixed(1), border:"2px solid " + getColor(props.era)}} 
+            opacity:(fxScale).toFixed(1), border:getBorder(props.era)}} 
             onClick={() => props.handleSelect(props.idx)}>
             {props.debugging === false && 
-                <img src="#" style={{width:width + "em", height:width+"em"}}/>
+                <img src={getImage(props.seed)} style={{width:width + "em", height:width+"em"}}/>
             }
             {props.debugging === true &&
                 <>

@@ -6,13 +6,12 @@ import React, {Component, useEffect, useState} from 'react';
 export class ArtEra extends Component {
     constructor(props) {
         super(props);
-        this.state = {points: [], cats:[], pathStr:"", inFocus:-1, era:props.idx, selected:-1};
+        this.state = {points: [], cats:[], pathStr:"", inFocus:-1, era:props.idx, selected:-1, seeded: false, seeds: []};
         this.getPoints();
     }
 
     componentDidUpdate() {
         this.getPoints();
-
         if(this.props.debugging === true && this.state.cats.length < this.props.resolution) 
         {
             fetch("https://api.thecatapi.com/v1/images/search")
@@ -22,6 +21,14 @@ export class ArtEra extends Component {
                     this.setState((state) => {state.cats.push(result[0].url)});
                 }
             );
+        }
+    }
+
+    componentDidMount() {
+        if(this.state.seeded === false) {
+            for(var i = 0; i < 10; i++) {
+                this.setState((state) => {state.seeds.push(Math.floor(Math.random() * 7))})
+            }
         }
     }
 
@@ -65,6 +72,11 @@ export class ArtEra extends Component {
             pointsTemp.push([xFinal, yFinal]);
         }
         this.updatePathStr(pointsTemp);
+
+        if(this.state.selectZoom > 0 && Math.abs(this.props.zoom - this.state.selectZoom) > 100) {
+            this.setState({selected: -1, selectZoom: -1})
+        }
+
         this.state.points = pointsTemp;
     }
 
@@ -88,7 +100,7 @@ export class ArtEra extends Component {
 
     handleSelect(idx) {
         console.log(idx.toString() + " selected!");
-        this.setState({selected: idx});
+        this.setState({selected: idx, selectZoom: this.props.zoom});
     }
 
     render() {
@@ -97,7 +109,7 @@ export class ArtEra extends Component {
         this.state.points.forEach((point, i) => {
             if(this.eraVisible() === true) {
                 placeholders.push(
-                    <Placeholder cat={this.state.cats[i]} debugging={this.props.debugging}
+                    <Placeholder seed={this.state.seeds[i]}cat={this.state.cats[i]} debugging={this.props.debugging}
                                  idx={i} key={i} x={point[0]} y={point[1]} z={this.props.zoom} era={this.state.era}
                                  handleSelect={this.handleSelect.bind(this)} selected={i===this.state.selected}
                                  checkSelected={this.state.selected>=0}/>
