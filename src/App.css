@@ -1,3 +1,8 @@
+body {
+  background-image: url("./assets/sitebg1.png");
+  background-size: contain;
+}
+
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -25,7 +30,25 @@
   position: absolute;
   display:flex;
   flex-direction: column;
-  box-shadow: 3px 3px 1px black;
+  box-shadow: 0px 0px 0px black;
+  opacity: 1;
+  transform: scale(100%);
+  transition: opacity 1s, transform 2s, box-shadow;
+}
+
+.selected {
+  transform: scale(200%);
+}
+
+.placeholder:hover {
+  background-color: blue;
+  z-index: 1000 !important;
+  opacity: 1 !important;
+  box-shadow: 1px 1px 5px black;
+}
+
+.special {
+  border: 5px blue !important;
 }
 
 svg {
@@ -59,4 +82,8 @@ svg path {
 .show {
   transform: scaleY(1);
   opacity: 1 !important;
+}
+
+.hide {
+  opacity: 0 !important;
 }
