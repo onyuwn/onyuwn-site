@@ -109,7 +109,7 @@ export class ArtEra extends Component {
         this.state.points.forEach((point, i) => {
             if(this.eraVisible() === true) {
                 placeholders.push(
-                    <Placeholder seed={this.state.seeds[i]}cat={this.state.cats[i]} debugging={this.props.debugging}
+                    <Placeholder images={this.props.images} seed={this.state.seeds[i]}cat={this.state.cats[i]} debugging={this.props.debugging}
                                  idx={i} key={i} x={point[0]} y={point[1]} z={this.props.zoom} era={this.state.era}
                                  handleSelect={this.handleSelect.bind(this)} selected={i===this.state.selected}
                                  checkSelected={this.state.selected>=0}/>
