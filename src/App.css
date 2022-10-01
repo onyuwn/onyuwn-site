@@ -1,6 +1,8 @@
 body {
+  font-family: 'Times New Roman', Times, serif;
   background-image: url("./assets/sitebg1.png");
-  background-size: contain;
+  background-size:100% 100%;
+  background-attachment: fixed;
 }
 
 .container {
@@ -15,6 +17,11 @@ body {
   position:fixed;
   z-index:1000;
   margin:1em;
+}
+
+#details {
+  position: absolute;
+  z-index: 1000;
 }
 
 .art-era {
@@ -37,7 +44,7 @@ body {
 }
 
 .selected {
-  transform: scale(200%);
+  transform: scale(-200%, 200%);
 }
 
 .placeholder:hover {
