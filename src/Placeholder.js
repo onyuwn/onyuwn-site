@@ -8,6 +8,7 @@ export function Placeholder(props) {
     const [x, setX] = useState(0);
     const [fxScale, setFxScale] = useState(0);
     const [hide, setHidden] = useState(false);
+    const images = ['d copy.png', 'g.png', 'glare.png', 'O.png', 'paper2 dispd.png', 'f copy 4.png', 'sitebg1.png'];
 
     useEffect(() => {
         var vH = window.innerHeight;
@@ -52,7 +53,8 @@ export function Placeholder(props) {
     }
 
     function getImage(i) {
-        return props.images[i];
+        console.log(i);
+        return process.env.PUBLIC_URL + '/assets/' + images[i];
     }
     
     return (
