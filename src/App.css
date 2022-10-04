@@ -5,6 +5,48 @@ body {
   background-attachment: fixed;
 }
 
+#header {
+  text-align: center;
+  margin-top:6em;
+  grid-row:1;
+  grid-column: 2;
+  color:yellow;
+  transform: scaleX(120%);
+}
+
+#header h1 {
+  color:yellow;
+  font-size: 4em;
+}
+
+#header h3, #header h4 {
+  color: white;
+  opacity: .7;
+}
+
+#header h2 {
+  margin-top: 9em;
+  color: white;
+  font-size: 2em;
+  transform: scaleX(150%);
+  opacity: 1;
+  animation: textFlash 2s linear infinite;
+}
+
+@keyframes textFlash {
+  0% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity:0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -49,6 +91,42 @@ body {
   opacity: 1;
   transform: scale(100%);
   transition: opacity 1s, transform 2s, box-shadow;
+}
+
+#debugButton {
+  color:yellow;
+  background-color: yellow;
+  height:5em;
+  width:5em;
+  transform:rotate(0deg);
+  animation: debugButtonShake .5s linear infinite;
+  animation-play-state: paused;
+}
+
+#debugButton:hover {
+  animation-play-state: running;
+}
+
+@keyframes debugButtonShake {
+  0% {
+    transform:rotate(0deg);
+  }
+  
+  25% {
+    transform: rotate(20deg);
+  }
+
+  50% {
+    transform: rotate(-20deg);
+  }
+
+  75% {
+    transform:rotate(20deg);
+  }
+
+  100% {
+    transform:rotate(0deg);
+  }
 }
 
 .selected {

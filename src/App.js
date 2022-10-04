@@ -37,7 +37,13 @@ function App() {
   return (
     <div className="container">
       <div id="controls">
-        <button onClick={toggleDebug}>debug</button>
+        <button id="debugButton" onClick={toggleDebug}>debug</button>
+      </div>
+      <div id="header">
+        <h1>Jake Herman</h1>
+        <h3>Full Stack Developer and Technical Artist</h3>
+        <h4>onyuwninquiries@gmail.com</h4>
+        <h2>scroll down...</h2>
       </div>
       {eras.map((era, i) => {
         return (
