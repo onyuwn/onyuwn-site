@@ -1,11 +1,5 @@
 /* eslint-disable */
 import { useEffect, useState } from "react"
-import d from "./assets/d copy.png"
-import g from "./assets/g.png"
-import glare from "./assets/glare.png"
-import O from "./assets/O.png"
-import paper from "./assets/paper2 dispd.png"
-import f from "./assets/f copy 4.png"
 
 export function Placeholder(props) {
     const [color, setColor] = useState("");
@@ -14,6 +8,7 @@ export function Placeholder(props) {
     const [x, setX] = useState(0);
     const [fxScale, setFxScale] = useState(0);
     const [hide, setHidden] = useState(false);
+    const images = ['d copy.png', 'g.png', 'glare.png', 'O.png', 'paper2 dispd.png', 'f copy 4.png', 'sitebg1.png'];
 
     useEffect(() => {
         var vH = window.innerHeight;
@@ -58,8 +53,8 @@ export function Placeholder(props) {
     }
 
     function getImage(i) {
-        var images = [d, f, g, glare, O, paper];
-        return images[i];
+        console.log(i);
+        return process.env.PUBLIC_URL + '/assets/' + images[i];
     }
     
     return (
@@ -69,11 +64,9 @@ export function Placeholder(props) {
             height:width+"em", filter:'blur(' + Math.ceil(2 - Math.floor((5 * fxScale))) + 'px)',
             opacity:(fxScale).toFixed(1), border:getBorder(props.era)}} 
             onClick={() => props.handleSelect(props.idx)}>
-            {props.selected && 
-                <div style={{transform:"scaleX(-100%)"}} id="details">
-                    <p>details</p>
-                </div>
-            }
+            <div className={props.selected === true ? "showDetails" : ""} style={{transform:"scaleX(-100%)"}} id="details">
+                <p>details</p>
+            </div>
             {props.debugging === false && 
                 <img src={getImage(props.seed)} style={{width:width + "em", height:width+"em"}}/>
             }
