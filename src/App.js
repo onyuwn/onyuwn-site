@@ -36,6 +36,7 @@ function App() {
 
   return (
     <div className="container">
+      <div id="progressIndicator" style={{top:zoom}}></div>
       <div id="controls">
         <button id="debugButton" onClick={toggleDebug}>debug</button>
       </div>
