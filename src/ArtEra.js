@@ -119,11 +119,11 @@ export class ArtEra extends Component {
         
         return (
             <div className="art-era">
-                {this.props.debugging &&
+                {/* {this.props.debugging &&
                     <svg viewBox={"0" + " 0 " + window.innerWidth.toString() + " " + window.innerHeight.toString()}>
                         <path d={"M" + Math.round(window.innerWidth/2).toString() + "," + Math.round(window.innerHeight/2).toString() + " " + this.state.pathStr}></path>
                     </svg>
-                }
+                } */}
                 {placeholders && placeholders.length >= 1 &&
                     <div>{placeholders}</div>
                 }
