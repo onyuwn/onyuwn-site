@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.css": "/onyuwn-site/static/css/main.ca2239a6.css",
-    "main.js": "/onyuwn-site/static/js/main.c675482f.js",
+    "main.css": "/onyuwn-site/static/css/main.95e8e244.css",
+    "main.js": "/onyuwn-site/static/js/main.c76c3bcb.js",
     "static/js/787.31e11cb0.chunk.js": "/onyuwn-site/static/js/787.31e11cb0.chunk.js",
     "static/media/sitebg1.png": "/onyuwn-site/static/media/sitebg1.2c8bc348928e3dc31c23.png",
+    "static/media/Angelic Peace.ttf": "/onyuwn-site/static/media/Angelic Peace.a36f547bc25dfe5bb4a4.ttf",
     "static/media/logo.svg": "/onyuwn-site/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/onyuwn-site/index.html",
-    "main.ca2239a6.css.map": "/onyuwn-site/static/css/main.ca2239a6.css.map",
-    "main.c675482f.js.map": "/onyuwn-site/static/js/main.c675482f.js.map",
+    "main.95e8e244.css.map": "/onyuwn-site/static/css/main.95e8e244.css.map",
+    "main.c76c3bcb.js.map": "/onyuwn-site/static/js/main.c76c3bcb.js.map",
     "787.31e11cb0.chunk.js.map": "/onyuwn-site/static/js/787.31e11cb0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ca2239a6.css",
-    "static/js/main.c675482f.js"
+    "static/css/main.95e8e244.css",
+    "static/js/main.c76c3bcb.js"
   ]
 }
