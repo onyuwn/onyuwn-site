@@ -1,8 +1,14 @@
+@font-face {
+  font-family: 'angelic-peace'; /*a name to be used later*/
+  src: url("../public/assets/Angelic Peace.ttf"); /*URL to font*/
+}
+
 body {
   font-family: 'Times New Roman', Times, serif;
-  background-image: url("../public/assets/sitebg1.png");
-  background-size:100% 100%;
-  background-attachment: fixed;
+  background-color: blue;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
 }
 
 /*bumdp*/
@@ -48,12 +54,26 @@ body {
   }
 }
 
+/* #root {
+  background-size:50% 50%;
+  background-attachment: fixed;
+  background-size: contain;
+  height: 0;
+  width: 50%;
+  padding-bottom: 50%;
+} */
+
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   height:500vh;
   width:100vw;
+  background-image: url("../public/assets/sitebg1.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 #progressIndicator {
@@ -70,6 +90,20 @@ body {
   position:fixed;
   z-index:1000;
   margin:1em;
+}
+
+#controls p {
+  color: yellow;
+  font-family: 'angelic-peace';
+  font-weight: 100;
+  font-size: 48px;
+}
+
+#controls .blurb {
+  color: yellow;
+  font-family: 'angelic-peace';
+  font-weight: 100;
+  font-size: 24px;
 }
 
 #details {

@@ -96,6 +96,7 @@ export class ArtEra extends Component {
 
     eraVisible() {
         return this.props.zoom > 0 && this.props.zoom < this.props.zoomCap;
+        //return true;
     }
 
     handleSelect(idx) {

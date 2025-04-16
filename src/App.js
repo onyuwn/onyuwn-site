@@ -39,6 +39,10 @@ function App() {
       <div id="progressIndicator" style={{top:zoom}}></div>
       <div id="controls">
         <button id="debugButton" onClick={toggleDebug}>debug</button>
+        <p>jake h</p>
+        <p>blog</p>
+        <p>contact</p>
+        <span class="blurb">welcome to my site.</span>
       </div>
       <div id="header">
         <h2>scroll down...</h2>
@@ -46,7 +50,7 @@ function App() {
       {eras.map((era, i) => {
         return (
           <>
-            <ArtEra idx={i} resolution={20} debugging={debugging} key={i} target={target} zoomCap={eraStep}
+            <ArtEra idx={i} resolution={10} debugging={debugging} key={i} target={target} zoomCap={eraStep}
                     zoom={zoom - ((eraStep - (eraStep/eras.length)) * i)}/>
           </>
         )
